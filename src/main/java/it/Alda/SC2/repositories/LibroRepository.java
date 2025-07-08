@@ -7,39 +7,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class LibroRepositories {
-    private final List<LibroBiblio> libroBiblio =new ArrayList<>();
+public class LibroRepository {
+    private final List<LibroBiblio> libri = new ArrayList<>();
+
+    private Long counter = 0L;
 
     public List<LibroBiblio>findAll(){
-        return new ArrayList<>(libroBiblio);
+        return new ArrayList<>(libri);
     }
     public LibroBiblio findById(Long id){
-        return libroBiblio.stream()
+        return libri.stream()
                 .filter(libroBiblio -> libroBiblio.getId().equals(id))
                 .findFirst()
                 .orElse(null);
     }
 
     public LibroBiblio save(LibroBiblio libroBiblio){
-        if (libroBiblio.getId() == null){
-            libroBiblio.setId(counter.incrementAndGet());
-            libroBiblio.add(libroBiblio);
-        }else {
-            return update (libroBiblio);
-        }
+
+        libroBiblio.setId(++counter);
+        libri.add(libroBiblio);
+        return libroBiblio;
+
     }
 
     public LibroBiblio update(LibroBiblio libroBiblio) {
-        int index = libroBiblio.indexOf(libroBiblio);
+        int index = libri.indexOf(libroBiblio);
         if (index >= 0) {
-            libroBiblio.set(index, libroBiblio);
+            libri.set(index, libroBiblio);
             return libroBiblio;
     }
     return null;
     }
 
     public void deleteById(Long id){
-        libroBiblio.removeIf(libroBiblio.getId().equals(id));
+        libri.removeIf(libroBiblio -> libroBiblio.getId().equals(id));
 
         }
     }
