@@ -3,6 +3,7 @@ package it.Alda.SC2.controller;
 
 import it.Alda.SC2.exception.LibroNotFoundException;
 import it.Alda.SC2.model.LibroBiblio;
+import it.Alda.SC2.repositories.LibroRepositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class LibroController {
 
     @PostMapping
     public ResponseEntity<LibroBiblio> createLibro(@RequestBody LibroBiblio libroBiblio) {
-        LibroBiblio savedLibroBiblio = libroRepository.save(libroBiblio);
+        LibroBiblio savedLibroBiblio = libroRepositories.save(libroBiblio);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedLibroBiblio);
     }
 

@@ -1,12 +1,12 @@
 package it.Alda.SC2.model;
 
 public class LibroBiblio {
-    private Long id;
+    private String id;
     private String titolo;
     private String autore;
     private Integer annoPubblicazione;
 
-    public LibroBiblio(Long id, String titolo, String autore, Integer annoPubblicazione) {
+    public libroBiblio(String id, String titolo, String autore, Integer annoPubblicazione) {
         this.id = id;
         this.titolo = titolo;
         this.autore = autore;
@@ -17,7 +17,7 @@ public class LibroBiblio {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class LibroRepositories {
@@ -20,12 +21,11 @@ public class LibroRepositories {
                 .orElse(null);
     }
 
-    public LibroBiblio save(LibroBiblio libroBiblio){
-        if (libroBiblio.getId() == null){
-            libroBiblio.setId(counter.incrementAndGet());
+    public LibroBiblio save(LibroBiblio libroBiblio) {
+        if (libroBiblio.getId() == null) {
+            libroBiblio.setId(UUID.randomUUID().toString());
             libroBiblio.add(libroBiblio);
-        }else {
-            return update (libroBiblio);
+            return libroBiblio;
         }
     }
 
