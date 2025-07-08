@@ -15,11 +15,11 @@ public class LibroRepositories {
     }
     public LibroBiblio findById(Long id){
         return libroBiblio.stream()
-                .filter(libroBiblio1 -> libroBiblio.getId().equals(id))
+                .filter(libroBiblio -> libroBiblio.getId().equals(id))
                 .findFirst()
                 .orElse(null);
-
     }
+
     public LibroBiblio save(LibroBiblio libroBiblio){
         if (libroBiblio.getId() == null){
             libroBiblio.setId(counter.incrementAndGet());
@@ -34,15 +34,13 @@ public class LibroRepositories {
         if (index >= 0) {
             libroBiblio.set(index, libroBiblio);
             return libroBiblio;
-        }
-        return libroBiblio;
     }
     return null;
-
     }
+
     public void deleteById(Long id){
-        LibroBiblio.removeOf(libroBiblio.getID().equals(id));
+        libroBiblio.removeIf(libroBiblio.getId().equals(id));
 
+        }
     }
-}
 
