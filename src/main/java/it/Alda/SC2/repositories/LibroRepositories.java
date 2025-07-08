@@ -9,13 +9,13 @@ import java.util.UUID;
 
 @Repository
 public class LibroRepositories {
-    private final List<LibroBiblio> libroBiblio =new ArrayList<>();
+    private final List<LibroBiblio> libri = new ArrayList<>();
 
     public List<LibroBiblio>findAll(){
-        return new ArrayList<>(libroBiblio);
+        return new ArrayList<>(libri);
     }
     public LibroBiblio findById(Long id){
-        return libroBiblio.stream()
+        return libri.stream()
                 .filter(libroBiblio -> libroBiblio.getId().equals(id))
                 .findFirst()
                 .orElse(null);
@@ -39,7 +39,7 @@ public class LibroRepositories {
     }
 
     public void deleteById(Long id){
-        libroBiblio.removeIf(libroBiblio.getId().equals(id));
+        libri.removeIf(libri.getId().equals(id));
 
         }
     }
