@@ -3,6 +3,7 @@ package it.Alda.SC2.controller;
 
 import it.Alda.SC2.exception.LibroNotFoundException;
 import it.Alda.SC2.model.LibroBiblio;
+import it.Alda.SC2.repositories.LibroRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,22 +13,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/libri")
 public class LibroController {
-    private final LibroRepositories libroRepositories;
+    private final LibroRepository libroRepository;
 
-    public LibroController(LibroRepositories libroRepositories){
-        this.libroRepositories= libroRepositories;
+    public LibroController(LibroRepository libroRepository) {
+        this.libroRepository = libroRepository;
     }
 
     @GetMapping
     public List<LibroBiblio> getAllLibroBiblio() {
-        return libroRepositories.findAll();
+        return libroRepository.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<LibroBiblio> getLibroBiblioRepositoriesById(@PathVariable Long id) {
-        LibroBiblio LibroBiblio = libroRepositories.findById(id);
+        LibroBiblio libroBiblio = libroRepository.findById(id);
         if (libroBiblio == null) {
-            throw new LibroNotFoundException(id);
+            throw new LibroNotFoundException("" + id);
         }
         return ResponseEntity.ok(libroBiblio);
     }
@@ -44,23 +45,23 @@ public class LibroController {
             return ResponseEntity.badRequest().build();
         }
 
-        LibroBiblio existingLibroBiblio = libroRepositories.findById(id);
+        LibroBiblio existingLibroBiblio = libroRepository.findById(id);
         if (existingLibroBiblio == null) {
-            throw new LibroNotFoundException(id);
+            throw new LibroNotFoundException(String.valueOf(id));
         }
 
-        LibroBiblio updatedLibroBiblio = libroRepositories.save(libroBiblio);
+        LibroBiblio updatedLibroBiblio = libroRepository.update(libroBiblio);
         return ResponseEntity.ok(updatedLibroBiblio);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLibroBiblio(@PathVariable Long id) {
-        LibroBiblio libroBiblio = libroRepositories.findById(id);
+        LibroBiblio libroBiblio = libroRepository.findById(id);
         if (libroBiblio == null) {
-            throw new LibroNotFoundException(id);
+            throw new LibroNotFoundException("Libro not found with id:" + id);
         }
 
-        libroRepositories.deleteById(id);
+        libroRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
